@@ -1,0 +1,21 @@
+/* Layout.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  margin-top: 140px; /* Espacio para el header fijo */
+  padding: 2rem 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  main {
+    margin-top: 180px; /* Más espacio para header en móvil */
+  }
+}
