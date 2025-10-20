@@ -13,7 +13,7 @@ function Footer() {
     }
 
     // Número de WhatsApp (sin el signo + y con código de país)
-    const phoneNumber = "51981183443";
+    const phoneNumber = "51933975518";
 
     // Crear el mensaje formateado para WhatsApp
     const message = `*💬 Mensaje desde Web Cernext*%0A%0A*📝 Mensaje:* ${mensaje}`;
@@ -56,7 +56,7 @@ function Footer() {
         <div className="footer-section footer-contact">
           <h3>Vamos a conversar.</h3>
           <div className="contact-info">
-            <p>@gmail.com</p>
+            <p>barclaydario@gmail.com</p>
             <p>Lima, Perú</p>
             <p>+51 988 490 319</p>
           </div>
