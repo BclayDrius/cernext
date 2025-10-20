@@ -59,7 +59,7 @@ function Header() {
               isActive ? "nav-link active" : "nav-link"
             }
           >
-            PLANES
+            SERVICIOS
           </NavLink>
         </nav>
       </div>

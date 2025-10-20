@@ -45,7 +45,7 @@ function Home() {
             className="btn btn-primary btn-hero"
             onClick={handleVerPlanes}
           >
-            <span>Ver Servicios</span>
+            <span>Ver Precios</span>
             <i className="arrow">→</i>
           </button>
           <button
