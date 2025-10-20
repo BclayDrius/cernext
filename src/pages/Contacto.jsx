@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { supabase } from "../lib/supabase";
+
 import "./Contacto.css";
 
 function Contacto() {
@@ -11,6 +13,8 @@ function Contacto() {
     plan: "",
     mensaje: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   // Efecto para cargar datos desde la navegación
   useEffect(() => {
@@ -31,27 +35,79 @@ function Contacto() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    // Número de WhatsApp (sin el signo + y con código de país)
-    const phoneNumber = "51933975518";
+    try {
+      // Preparar los datos para Supabase
+      const contactData = {
+        name: formData.nombre,
+        email: formData.email,
+        subject: formData.plan
+          ? `${formData.asunto} - Servicio: ${formData.plan}`
+          : formData.asunto,
+        message: formData.mensaje,
+      };
 
-    // Crear el mensaje formateado para WhatsApp
-    let message = `*📩 Contacto desde Web Cernext*%0A%0A*👤 Nombre:* ${formData.nombre}%0A*✉️ Email:* ${formData.email}%0A*📝 Asunto:* ${formData.asunto}`;
+      // Guardar en Supabase
+      const { data, error } = await supabase
+        .from("contacts")
+        .insert(contactData);
 
-    // Agregar plan si está seleccionado
-    if (formData.plan) {
-      message += `%0A*📋 Plan:* ${formData.plan}`;
+      if (error) {
+        console.error("Error al guardar en Supabase:", error);
+        setSubmitStatus({
+          type: "warning",
+          message:
+            "Mensaje enviado por WhatsApp. Error al guardar en base de datos.",
+        });
+      } else {
+        console.log("Contacto guardado exitosamente:", data);
+        setSubmitStatus({
+          type: "success",
+          message:
+            "Mensaje enviado y guardado exitosamente. Te contactaremos pronto.",
+        });
+      }
+
+      // Número de WhatsApp (sin el signo + y con código de país)
+      const phoneNumber = "51933975518";
+
+      // Crear el mensaje formateado para WhatsApp
+      let message = `*📩 Contacto desde Web Cernext*%0A%0A*👤 Nombre:* ${formData.nombre}%0A*✉️ Email:* ${formData.email}%0A*📝 Asunto:* ${formData.asunto}`;
+
+      // Agregar plan si está seleccionado
+      if (formData.plan) {
+        message += `%0A*📋 Plan:* ${formData.plan}`;
+      }
+
+      message += `%0A*💬 Mensaje:* ${formData.mensaje}`;
+
+      // Crear la URL de WhatsApp
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
+
+      // Abrir WhatsApp en una nueva pestaña
+      window.open(whatsappUrl, "_blank");
+
+      // Limpiar el formulario después del envío exitoso
+      setFormData({
+        nombre: "",
+        email: "",
+        asunto: "",
+        plan: "",
+        mensaje: "",
+      });
+    } catch (error) {
+      console.error("Error inesperado:", error);
+      setSubmitStatus({
+        type: "error",
+        message: "Ocurrió un error inesperado. Por favor, intenta nuevamente.",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    message += `%0A*💬 Mensaje:* ${formData.mensaje}`;
-
-    // Crear la URL de WhatsApp
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
-
-    // Abrir WhatsApp en una nueva pestaña
-    window.open(whatsappUrl, "_blank");
   };
 
   return (
@@ -82,6 +138,7 @@ function Contacto() {
 
       <div className="contacto-form-container" id="contacto-form-container">
         <h2>Envíanos un mensaje</h2>
+
         <form className="contacto-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="nombre">Nombre</label>
@@ -109,59 +166,49 @@ function Contacto() {
 
           <div className="form-group">
             <label htmlFor="asunto">Asunto</label>
-            <select
+            <input
+              type="text"
               id="asunto"
               name="asunto"
               value={formData.asunto}
               onChange={handleChange}
+              placeholder="Escribe el asunto de tu consulta"
               required
-              className="select-asunto"
-            >
-              <option value="">Selecciona un asunto</option>
-              <option value="Ver cuál sería mi plan ideal">
-                Ver cuál sería mi plan ideal
-              </option>
-              <option value="Información extra sobre los planes">
-                Información extra sobre los planes
-              </option>
-              <option value="Creación de página web">
-                Creación de página web
-              </option>
-              <option value="Soporte técnico">Soporte técnico</option>
-              <option value="Consulta sobre servicios adicionales">
-                Consulta sobre servicios adicionales
-              </option>
-            </select>
+            />
           </div>
 
-          {/* Campo Plan - Solo se muestra si el asunto es "Creación de página web" */}
-          {formData.asunto === "Creación de página web" && (
-            <div className="form-group">
-              <label htmlFor="plan">Plan</label>
-              <select
-                id="plan"
-                name="plan"
-                value={formData.plan}
-                onChange={handleChange}
-                required
-                className="select-plan"
-              >
-                <option value="">Selecciona un plan</option>
-                <option value="Plan Básico">
-                  Plan Básico - S/ 500 (anual)
-                </option>
-                <option value="Plan Emprendedor">
-                  Plan Emprendedor - S/ 900 (anual)
-                </option>
-                <option value="Plan Profesional">
-                  Plan Profesional - S/ 1,500 (anual)
-                </option>
-                <option value="Plan Tienda Online">
-                  Plan Tienda Online - S/ 2,500 (anual)
-                </option>
-              </select>
-            </div>
-          )}
+          <div className="form-group">
+            <label htmlFor="plan">Servicio de Interés (Opcional)</label>
+            <select
+              id="plan"
+              name="plan"
+              value={formData.plan}
+              onChange={handleChange}
+              className="select-plan"
+            >
+              <option value="">Selecciona un servicio (opcional)</option>
+              <option value="Página Web Corporativa">
+                Página Web Corporativa
+              </option>
+              <option value="E-commerce">E-commerce</option>
+              <option value="Aplicación Web">
+                Aplicación Web Personalizada
+              </option>
+              <option value="App Móvil">App Móvil</option>
+              <option value="Sistema CRM">Sistema CRM</option>
+              <option value="Sistema ERP">Sistema ERP</option>
+              <option value="Cableado Estructurado">
+                Cableado Estructurado
+              </option>
+              <option value="Red Wi-Fi">Red Wi-Fi Empresarial</option>
+              <option value="Sistema de Vigilancia">
+                Sistema de Vigilancia IP
+              </option>
+              <option value="Migración Cloud">Migración a la Nube</option>
+              <option value="Hosting">Hosting Administrado</option>
+              <option value="Consultoría">Consultoría Tecnológica</option>
+            </select>
+          </div>
 
           <div className="form-group">
             <label htmlFor="mensaje">Mensaje</label>
@@ -175,8 +222,36 @@ function Contacto() {
             ></textarea>
           </div>
 
-          <button type="submit" className="submit-button">
-            Enviar a WhatsApp
+          {/* Mensaje de estado */}
+          {submitStatus && (
+            <div className={`status-message ${submitStatus.type}`}>
+              <i
+                className={`fas ${
+                  submitStatus.type === "success"
+                    ? "fa-check-circle"
+                    : "fa-exclamation-triangle"
+                }`}
+              ></i>
+              {submitStatus.message}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="submit-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <i className="fas fa-spinner fa-spin"></i>
+                Enviando...
+              </>
+            ) : (
+              <>
+                <i className="fab fa-whatsapp"></i>
+                Enviar Mensaje
+              </>
+            )}
           </button>
         </form>
       </div>
