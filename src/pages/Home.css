@@ -250,9 +250,9 @@
 
 .services-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -292,6 +292,12 @@
   font-size: 2.5rem;
   color: var(--secondary-color);
   margin-bottom: 1rem;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-category:hover .category-icon {
+  transform: scale(1.1) rotate(3deg);
+  color: var(--primary-color);
 }
 
 .service-category h3 {
@@ -608,7 +614,11 @@
 }
 
 .feature-card:hover .feature-icon {
-  transform: scale(1.2) rotate(5deg);
+  transform: scale(1.12) rotate(4deg);
+}
+
+.feature-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .feature-title {
@@ -678,6 +688,12 @@
   font-size: 2.2rem;
   color: var(--secondary-color);
   margin-bottom: 0.8rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.industry-card:hover .industry-icon {
+  transform: scale(1.08) rotate(2deg);
+  color: var(--primary-color);
 }
 
 .industry-card h3 {
@@ -726,8 +742,8 @@
   color: var(--primary-color);
   margin-bottom: 0.8rem;
   font-weight: bold;
-  text-align: center;
   line-height: 1.3;
+  margin: 0;
 }
 
 .tech-tags {
@@ -908,6 +924,21 @@
   }
 }
 
+/* Media queries específicas para services-categories */
+@media (max-width: 1200px) {
+  .services-categories {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-categories {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+}
+
 /* Responsive Adjustments for New Sections */
 @media (max-width: 768px) {
   .about-stats {
@@ -921,10 +952,6 @@
   
   .stat-number {
     font-size: 1.5rem;
-  }
-  
-  .services-categories {
-    grid-template-columns: 1fr;
   }
   
   .services-grid {
@@ -994,7 +1021,7 @@
   }
 }
 
-/* Elementos visuales adicionales */
+/* Elementos visuales adicional
 
 /* Iconos flotantes para el hero */
 .hero-section::after {
@@ -1163,5 +1190,469 @@
     background: none;
     -webkit-text-fill-color: inherit;
     filter: none;
+  }
+}/* Estilo
+s para imágenes dentro de secciones */
+
+/* About section con imagen */
+.about-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.about-text {
+  text-align: left;
+}
+
+.about-image {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.about-image:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.about-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 27, 66, 0.9));
+  padding: 1.5rem;
+  color: white;
+}
+
+.overlay-text {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 600;
+}
+
+.overlay-text i {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+}
+
+/* Section headers con imagen */
+.section-header-with-image {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.section-text {
+  text-align: left;
+}
+
+.section-image {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.section-image:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+.section-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.image-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(9, 123, 194, 0.9);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.image-badge i {
+  font-size: 1rem;
+}
+
+/* Service cards con mini imágenes */
+.service-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.service-mini-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-mini-image {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.mini-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tech categories con iconos */
+.tech-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  justify-content: flex-start;
+}
+
+.tech-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.tech-category:hover .tech-icon {
+  transform: scale(1.08) rotate(6deg);
+  box-shadow: 0 6px 16px rgba(9, 123, 194, 0.25);
+}
+
+.tech-icon {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efectos adicionales para imágenes */
+.about-img,
+.section-img,
+.mini-img {
+  transition: all 0.3s ease;
+  filter: brightness(1) contrast(1.1);
+}
+
+.about-image:hover .about-img,
+.section-image:hover .section-img,
+.service-mini-image:hover .mini-img {
+  filter: brightness(1.1) contrast(1.2);
+}
+
+/* Animaciones para elementos visuales */
+@keyframes imageFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.section-image {
+  animation: imageFloat 6s ease-in-out infinite;
+}
+
+.about-image {
+  animation: imageFloat 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Responsive para imágenes */
+@media (max-width: 768px) {
+  .about-header {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .about-text {
+    text-align: center;
+  }
+  
+  .section-header-with-image {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .section-text {
+    text-align: center;
+  }
+  
+  .section-image {
+    max-width: 350px;
+    margin: 0 auto;
+  }
+  
+  .about-img,
+  .section-img {
+    height: 200px;
+  }
+  
+  .service-card-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .service-mini-image {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .tech-header {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .tech-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  /* Desactivar animaciones en móviles para mejor rendimiento */
+  .section-image,
+  .about-image {
+    animation: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-img,
+  .section-img {
+    height: 180px;
+  }
+  
+  .service-mini-image {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .image-badge {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  
+  .overlay-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* Efectos especiales para secciones con background */
+.development-section .section-img,
+.security-section .section-img {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.development-section .image-badge,
+.security-section .image-badge {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Mejoras visuales adicionales */
+.service-card:hover .service-icon {
+  transform: scale(1.15) rotate(8deg);
+  color: var(--primary-color);
+}
+
+.service-icon {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tech-tag {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tech-tag:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(9, 123, 194, 0.3);
+}
+
+/* Gradientes para overlays */
+.image-overlay {
+  background: linear-gradient(
+    transparent 0%, 
+    rgba(0, 27, 66, 0.3) 30%, 
+    rgba(0, 27, 66, 0.8) 70%, 
+    rgba(0, 27, 66, 0.95) 100%
+  );
+}
+
+/* Ajustes finales de centrado y layout */
+
+/* Asegurar que las secciones estén bien centradas */
+.services-overview,
+.infrastructure-section,
+.development-section,
+.database-section,
+.cloud-section,
+.security-section,
+.industries-section,
+.technologies-section {
+  text-align: center;
+}
+
+/* Centrar mejor los grids de servicios */
+.services-grid {
+  justify-items: center;
+}
+
+/* Mejorar el centrado de las tech categories */
+.tech-categories {
+  justify-items: center;
+}
+
+.tech-category {
+  width: 100%;
+  max-width: 280px;
+}
+
+/* Ajustes específicos para pantallas medianas */
+@media (max-width: 1024px) {
+  .services-categories {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+  
+  .service-category {
+    max-width: 300px;
+    width: 100%;
+  }
+}
+
+/* Ajustes para tablets */
+@media (max-width: 768px) {
+  .services-categories {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  
+  .service-category {
+    max-width: 350px;
+    width: 100%;
+  }
+  
+  .tech-categories {
+    grid-template-columns: 1fr;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+}
+
+/* Remover estilos no utilizados de elementos eliminados */
+.service-card-header,
+.service-mini-image,
+.section-header-with-image {
+  display: none;
+}/*
+ Mejoras globales de animaciones */
+
+/* Easing más suave para elementos principales */
+.service-card,
+.feature-card,
+.tech-category,
+.industry-card,
+.service-category {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animaciones más suaves para hovers de cards */
+.service-card:hover,
+.feature-card:hover,
+.tech-category:hover,
+.industry-card:hover,
+.service-category:hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Prevenir animaciones bruscas en elementos específicos */
+.service-icon i,
+.feature-icon i,
+.category-icon i,
+.industry-icon i {
+  transition: inherit;
+}
+
+/* Animaciones más suaves para botones */
+.btn-hero,
+.btn-cta {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-hero:hover,
+.btn-cta:hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reducir motion para usuarios que lo prefieren */
+@media (prefers-reduced-motion: reduce) {
+  .service-icon,
+  .feature-icon,
+  .tech-icon,
+  .category-icon,
+  .industry-icon,
+  .tech-tag {
+    transition: none !important;
+  }
+  
+  .service-card:hover .service-icon,
+  .feature-card:hover .feature-icon,
+  .tech-category:hover .tech-icon,
+  .service-category:hover .category-icon,
+  .industry-card:hover .industry-icon {
+    transform: none !important;
+  }
+}
+
+/* Optimizaciones para móviles */
+@media (max-width: 768px) {
+  .service-icon,
+  .feature-icon,
+  .tech-icon,
+  .category-icon,
+  .industry-icon {
+    transition-duration: 0.2s;
+  }
+  
+  .service-card:hover .service-icon,
+  .feature-card:hover .feature-icon,
+  .tech-category:hover .tech-icon,
+  .service-category:hover .category-icon,
+  .industry-card:hover .industry-icon {
+    transform: scale(1.05) rotate(1deg);
   }
 }

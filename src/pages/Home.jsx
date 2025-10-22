@@ -61,14 +61,31 @@ function Home() {
       {/* About Section */}
       <section className="about-section">
         <div className="about-content">
-          <h2 className="section-title">¿Quiénes Somos?</h2>
-          <p className="about-description">
-            <strong>Cernext</strong> es una empresa líder en soluciones
-            tecnológicas integrales con más de una década de experiencia
-            transformando negocios a través de la tecnología. Nos especializamos
-            en ofrecer servicios completos que van desde la infraestructura
-            física hasta el desarrollo de software avanzado.
-          </p>
+          <div className="about-header">
+            <div className="about-text">
+              <h2 className="section-title">¿Quiénes Somos?</h2>
+              <p className="about-description">
+                <strong>Cernext</strong> es una empresa líder en soluciones
+                tecnológicas integrales con más de una década de experiencia
+                transformando negocios a través de la tecnología. Nos
+                especializamos en ofrecer servicios completos que van desde la
+                infraestructura física hasta el desarrollo de software avanzado.
+              </p>
+            </div>
+            <div className="about-image">
+              <img
+                src="/images/icons/team-collaboration.jpg"
+                alt="Equipo Cernext trabajando en soluciones tecnológicas"
+                className="about-img"
+              />
+              <div className="image-overlay">
+                <div className="overlay-text">
+                  <i className="bi bi-people-fill"></i>
+                  <span>Equipo Experto</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="about-stats">
             <div className="stat-item">
               <div className="stat-number">500+</div>
@@ -684,7 +701,12 @@ function Home() {
         </p>
         <div className="tech-categories">
           <div className="tech-category">
-            <h3>Frontend</h3>
+            <div className="tech-header">
+              <div className="tech-icon">
+                <i className="bi bi-palette"></i>
+              </div>
+              <h3>Frontend</h3>
+            </div>
             <div className="tech-tags">
               <span className="tech-tag">React</span>
               <span className="tech-tag">Vue.js</span>
@@ -695,7 +717,12 @@ function Home() {
             </div>
           </div>
           <div className="tech-category">
-            <h3>Backend</h3>
+            <div className="tech-header">
+              <div className="tech-icon">
+                <i className="bi bi-server"></i>
+              </div>
+              <h3>Backend</h3>
+            </div>
             <div className="tech-tags">
               <span className="tech-tag">Node.js</span>
               <span className="tech-tag">Python</span>
@@ -706,7 +733,12 @@ function Home() {
             </div>
           </div>
           <div className="tech-category">
-            <h3>Móvil</h3>
+            <div className="tech-header">
+              <div className="tech-icon">
+                <i className="bi bi-phone"></i>
+              </div>
+              <h3>Móvil</h3>
+            </div>
             <div className="tech-tags">
               <span className="tech-tag">React Native</span>
               <span className="tech-tag">Flutter</span>
@@ -717,7 +749,12 @@ function Home() {
             </div>
           </div>
           <div className="tech-category">
-            <h3>Bases de Datos</h3>
+            <div className="tech-header">
+              <div className="tech-icon">
+                <i className="bi bi-database"></i>
+              </div>
+              <h3>Bases de Datos</h3>
+            </div>
             <div className="tech-tags">
               <span className="tech-tag">PostgreSQL</span>
               <span className="tech-tag">MySQL</span>
@@ -728,7 +765,12 @@ function Home() {
             </div>
           </div>
           <div className="tech-category">
-            <h3>Cloud</h3>
+            <div className="tech-header">
+              <div className="tech-icon">
+                <i className="bi bi-cloud"></i>
+              </div>
+              <h3>Cloud</h3>
+            </div>
             <div className="tech-tags">
               <span className="tech-tag">AWS</span>
               <span className="tech-tag">Azure</span>
@@ -739,7 +781,12 @@ function Home() {
             </div>
           </div>
           <div className="tech-category">
-            <h3>DevOps</h3>
+            <div className="tech-header">
+              <div className="tech-icon">
+                <i className="bi bi-gear"></i>
+              </div>
+              <h3>DevOps</h3>
+            </div>
             <div className="tech-tags">
               <span className="tech-tag">Jenkins</span>
               <span className="tech-tag">GitLab CI</span>
